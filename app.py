@@ -292,9 +292,11 @@ elif st.session_state.step == 2:
             with st.spinner("Enregistrement en cours..."):
                 try:
                     upsert_answer_to_sheet(st.session_state.answers[idx])
-                except Exception:
-                    st.error("Erreur lors de l’enregistrement dans Google Sheets. Vérifiez la configuration et réessayez.")
+                except Exception as e:
+                    st.error("Erreur lors de l’enregistrement dans Google Sheets.")
+                    st.exception(e)
                     st.stop()
+
 
             if idx < N_RECS - 1:
                 st.session_state.current_idx += 1
